@@ -51,3 +51,7 @@ This project implements a heart rate and blood oxygen (SpO2) monitoring system u
 - Place your finger on the MAX30102 sensor.
 - The LED will light up when a finger is detected.
 - Monitor real-time BPM and SpO2 values on the terminal.
+
+## Future Improvements:
+- Optimize algorithm to calculate heart rate and SpO2 to be more sensitive.
+- Add graph of changes
