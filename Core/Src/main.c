@@ -115,11 +115,9 @@ int main(void)
   while (1) {
       MAX30102_ReadFIFO(&red, &ir);
 
-      // Lọc cơ bản (giảm DC)
-      int32_t ir_ac = ir - 50000; // giả sử nền ~50k, bạn có thể dùng trung bình trượt
+      int32_t ir_ac = ir - 50000; 
 
-      // Phát hiện đỉnh (rising edge → falling edge)
-      if (prev_ir > 0 && ir_ac < 0) {  // đi xuống sau khi vượt 0
+      if (prev_ir > 0 && ir_ac < 0) {  
           uint32_t now = HAL_GetTick();
           uint32_t dt = now - last_peak_time;
           if (dt > 300 && dt < 2000) {
