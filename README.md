@@ -10,28 +10,31 @@ This project implements a heart rate and blood oxygen (SpO2) monitoring system u
 - Uses STM32 with I2C communication to MAX30102.
 - UART output for real-time data logging
 
-## Hardware Requirements
+## 🛠️ Hardware Requirements
 - STM32 Board, ST-Link for programming.
 - MAX30102 Sensor.
 - USB-to-UART Module (e.g., CP2102, CH340).
 - Jumper wires
 
-## Software Requirements
+## 💻 Software Requirements
 - STM32CubeIDE or similar IDE for STM32 development.
 - Terminal software (e.g., Tera Term, PuTTY) for UART data viewing.
 
-##🔌Connectivity:
-| MAX30102 | STM32F411 | Ghi chú |
-|----------|-----------|---------|
-| VIN      | 3.3V      | Nguồn 3.3V |
-| GND      | GND       | Mass chung |
-| SDA      | PA7       | I2C1 SDA |
-| SCL      | PA6       | I2C1 SCL |
-| INT      | (chưa dùng) | Có thể nối vào EXTI nếu cần |
+## 🔌Connectivity
 
-UART:  
-- TX: PA2 (USART2_TX)  
-- RX: PA3 (USART2_RX)  
+| MAX30102 | STM32F411 |     Note     |
+|----------|-----------|--------------|
+| VIN      | 3.3V      | Power source |
+| GND      | GND       | Ground       |
+| SDA      | PA7       | I2C1 SDA     |
+| SCL      | PA6       | I2C1 SCL     |
+
+| MAX30102 | UART      |     Note     |
+|----------|-----------|--------------|
+| PA2      | TX        | UART2_TX     |
+| PA3      | RX        | UART2_RX     |
+| GND      | GND       | Ground       |
+
 - Baudrate: **115200**  
 
 ## Installation
