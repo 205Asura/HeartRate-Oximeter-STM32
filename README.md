@@ -8,13 +8,19 @@ This project implements a heart rate and blood oxygen (SpO2) monitoring system u
 ## 🚀 Features
 - Measures heart rate and blood oxygen levels.
 - Uses STM32 with I2C communication to MAX30102.
-- UART output for real-time data logging
+- UART output for real-time data logging.
+- Graph monitoring real time heart rate.
+<img width="500" height="333" alt="image" src="https://github.com/user-attachments/assets/9339562b-95f7-4706-87e5-4aedf56c876b" />
 
 ## 🛠️ Hardware Requirements
 - STM32 Board, ST-Link for programming.
 - MAX30102 Sensor.
 - USB-to-UART Module (e.g., CP2102, CH340).
 - Jumper wires
+
+<img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/26c8f20e-f59d-4725-986e-e198d25d0759" />
+
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/90827b86-7aa6-44af-9b29-ddf2697b25e4" />
 
 ## 💻 Software Requirements
 - STM32CubeIDE or similar IDE for STM32 development.
@@ -53,5 +59,5 @@ This project implements a heart rate and blood oxygen (SpO2) monitoring system u
 - Monitor real-time BPM and SpO2 values on the terminal.
 
 ## Future Improvements:
+- Measure blood oxygen
 - Optimize algorithm to calculate heart rate and SpO2 to be more sensitive.
-- Add graph of changes
