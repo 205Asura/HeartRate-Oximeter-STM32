@@ -5,7 +5,7 @@ A project to monitor heart rate (in BPM) and blood oxygen levels (SpO2) using an
 ## Description
 This project implements a heart rate and blood oxygen (SpO2) monitoring system using the STM32 microcontroller and the MAX30102 pulse oximetry sensor. The system reads infrared (IR) and red light data from the sensor, processes it, and controls an LED to indicate finger presence. Data is also sent via UART to a connected terminal for real-time monitoring.
 
-## Features
+## 🚀 Features
 - Measures heart rate and blood oxygen levels.
 - Uses STM32 with I2C communication to MAX30102.
 - UART output for real-time data logging
@@ -22,18 +22,18 @@ This project implements a heart rate and blood oxygen (SpO2) monitoring system u
 
 ## 🔌Connectivity
 
-| MAX30102 | STM32F411 |     Note     |
+| MAX30102 | STM32     |     Note     |
 |----------|-----------|--------------|
 | VIN      | 3.3V      | Power source |
 | GND      | GND       | Ground       |
 | SDA      | PA7       | I2C1 SDA     |
 | SCL      | PA6       | I2C1 SCL     |
 
-| MAX30102 | UART      |     Note     |
-|----------|-----------|--------------|
-| PA2      | TX        | UART2_TX     |
-| PA3      | RX        | UART2_RX     |
-| GND      | GND       | Ground       |
+| UART      | STM32     |     Note     |
+|-----------|-----------|--------------|
+| TX        | PA2       | USART2_TX    |
+| RX        | PA3       | USART2_RX    |
+| GND       | GND       | Ground       |
 
 - Baudrate: **115200**  
 
