@@ -45,6 +45,10 @@ I2C_HandleTypeDef hi2c1;
 
 UART_HandleTypeDef huart2;
 
+/* USER CODE BEGIN PD */
+
+/* USER CODE END PV */
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -64,6 +68,45 @@ int _write(int file, char *ptr, int len)
 {
     HAL_UART_Transmit(&huart2, (uint8_t *)ptr, len, HAL_MAX_DELAY);
     return len;
+}
+#define BUFFER_SIZE 100
+uint32_t irBuffer[BUFFER_SIZE];
+uint8_t bufferIndex = 0;
+
+uint32_t lastPeakTime = 0;
+uint32_t currentPeakTime = 0;
+int bpm = 0;
+uint32_t irValue, red;
+#define THRESHOLD 50000  // Ngưỡng IR để phát hiện nhịp (tùy chỉnh theo thực tế)
+
+void HeartRate_Process(void)
+{
+    MAX30102_ReadFIFO(&red, &irValue);  // Đọc giá trị IR
+
+    irBuffer[bufferIndex++] = irValue;
+    if (bufferIndex >= BUFFER_SIZE) bufferIndex = 0;
+
+    static uint8_t isPeak = 0;
+
+    if (irValue > THRESHOLD && !isPeak)  // bắt đầu nhịp
+    {
+        isPeak = 1;
+        currentPeakTime = HAL_GetTick();   // ms hiện tại
+
+        if (lastPeakTime > 0) {
+            uint32_t dt = currentPeakTime - lastPeakTime; // ms giữa 2 đỉnh
+            if (dt > 300 && dt < 2000) {   // nhịp tim hợp lý (30–200 BPM)
+                bpm = 60000 / dt;       // BPM = 60s / (dt/1000)
+                printf("Heart rate: %d bpm\n", bpm);
+            }
+        }
+
+        lastPeakTime = currentPeakTime;
+    }
+
+    if (irValue < THRESHOLD && isPeak) {
+        isPeak = 0; // reset trạng thái
+    }
 }
 /* USER CODE END 0 */
 
@@ -102,34 +145,17 @@ int main(void)
   if (MAX30102_CheckConnection()) printf("BPM Measure Connection Success\r\n");
   else printf("connection fail\n");
   MAX30102_Init();
-  uint32_t ir, red;
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint32_t last_peak_time = 0;
-  uint32_t bpm = 0;
-  int32_t prev_ir = 0;
-
-  while (1) {
-      MAX30102_ReadFIFO(&red, &ir);
-
-      int32_t ir_ac = ir - 50000; 
-
-      if (prev_ir > 0 && ir_ac < 0) {  
-          uint32_t now = HAL_GetTick();
-          uint32_t dt = now - last_peak_time;
-          if (dt > 300 && dt < 2000) {
-              bpm = 60000 / dt;
-              printf("Heart rate: %lu bpm\r\n", bpm);
-          }
-          last_peak_time = now;
+  while (1)
+      {
+          HeartRate_Process();
+          HAL_Delay(10);  // đọc mỗi 10ms
       }
-      prev_ir = ir_ac;
 
-      HAL_Delay(10); // 100 Hz sampling
-  }
   /* USER CODE END 3 */
 }
 
