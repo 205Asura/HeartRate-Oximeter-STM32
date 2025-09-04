@@ -4,10 +4,8 @@
 #include "main.h"
 #include <stdint.h>
 
-// Địa chỉ I2C của MAX30102
 #define MAX30102_I2C_ADDR (0x57 << 1)
 
-// Định nghĩa các thanh ghi quan trọng
 #define REG_INTR_STATUS_1 0x00
 #define REG_INTR_STATUS_2 0x01
 #define REG_INTR_ENABLE_1 0x02
@@ -31,10 +29,8 @@
 #define REG_REV_ID 0xFE
 #define REG_PART_ID 0xFF
 
-// Khai báo biến I2C từ main.c
 extern I2C_HandleTypeDef hi2c1;
 
-// Khai báo các hàm
 uint8_t MAX30102_Init(void);
 uint8_t MAX30102_CheckConnection(void);
 void MAX30102_ReadFIFO(uint32_t *red_value, uint32_t *ir_value);
