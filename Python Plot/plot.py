@@ -17,12 +17,12 @@ class BPMPlotter:
         # connect to stm32
         try:
             self.ser = serial.Serial(self.com_port, self.baud_rate, timeout=1)
-            print(f"Đã kết nối đến {self.com_port}")
+            print(f"Connected to {self.com_port}")
             # Xóa buffer serial
             self.ser.reset_input_buffer()
             time.sleep(2)
         except Exception as e:
-            print(f"Lỗi kết nối đến {self.com_port}: {e}")
+            print(f"Cannot connect to {self.com_port}: {e}")
             exit()
     
     def setup_plot(self):
@@ -91,14 +91,14 @@ class BPMPlotter:
                         self.ax.set_ylim(y_min, y_max)
         
         except Exception as e:
-            print(f"Lỗi khi đọc dữ liệu: {e}")
+            print(f"Fail reading data: {e}")
         
         return self.bpm_line, self.current_bpm_text
     
     def run(self):
-        print("Đang đọc dữ liệu BPM từ STM32...")
-        print("Nhấn Ctrl+C để dừng")
-        print("Chờ dữ liệu...")
+        print("Reading heart rate data from STM32...")
+        print("Ctrl+C to exit")
+        print("Waiting for data...")
         
         try:
             ani = animation.FuncAnimation(self.fig, self.update_plot,
@@ -107,11 +107,11 @@ class BPMPlotter:
             plt.show()
             
         except KeyboardInterrupt:
-            print("\nĐang dừng chương trình...")
+            print("\nExiting...")
         finally:
             if self.ser and self.ser.is_open:
                 self.ser.close()
-            print("Đã đóng kết nối serial")
+            print("Closed serial port")
 
 if __name__ == "__main__":
     com_port = 'COM5' # base on your device manager
